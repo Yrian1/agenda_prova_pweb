@@ -1,12 +1,12 @@
 package com.example.agenda.controllers;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,15 +25,13 @@ public class ContactsControllers{
 	ContatoRepository contatoRepository;
 	
 	@GetMapping
-	@RequestMapping("")
 	public List<ContatoDto> retornaContato(){
 		return ContatoDto.converte(contatoRepository.findAll());
 		
 	}
-	@GetMapping
-	@RequestMapping("/10")
-	public ContatoDto contato10(UriComponentsBuilder uriBuilder){
-		ContatoDto contatoDto = new ContatoDto(contatoRepository.findById(10));
+	@GetMapping("/{id}")
+	public ContatoDto contato10(@PathVariable long id){
+		ContatoDto contatoDto = new ContatoDto(contatoRepository.findById(id));
 		
 		
 		return contatoDto;
@@ -50,10 +48,9 @@ public class ContactsControllers{
 
 	}
 	
-	@GetMapping
-	@RequestMapping("/paulo")
-	public List<ContatoDto> contatoPaulo(){
-		List<ContatoDto> contatoDto = ContatoDto.converte(contatoRepository.findByNomeContaining("paulo"));
+	@GetMapping("/{nome]")
+	public List<ContatoDto> contatoPaulo(@RequestBody String nome){
+		List<ContatoDto> contatoDto = ContatoDto.converte(contatoRepository.findByNomeContaining(nome));
 		
 		
 		return contatoDto;

@@ -11,5 +11,6 @@ public interface ContatoRepository extends JpaRepository<Contato, Long>{
 	public Contato findById(int i);
 	public List<Contato> findByNomeContaining(String nome);
 	public boolean existsById(int i);
+	public Contato findById(long id);
 
 }
